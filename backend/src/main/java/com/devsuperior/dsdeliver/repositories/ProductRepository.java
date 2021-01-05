@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.devsuperior.dsdeliver.entities.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
+	
+	//Retorna por ordem alfabetica
 	List<Product> findAllByOrderByNameAsc();
 }
