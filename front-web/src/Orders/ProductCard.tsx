@@ -1,24 +1,21 @@
+import { formatPrice } from './helpers';
 import './styles.css';
 
 import { Product } from './types';
 
 type Props = {
     product: Product;
-}
-//Esse metodo trata a formatação da moeda para R$ 35,00 por exemplo. Sem isso ficaria tipo R$ 35
-function formatPrice(price: number){
-    const formatter = new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-        minimumFractionDigits: 2
-    });
-
-    return formatter.format(price);
+    onSelectProduct: (product: Product) => void;
+    isSelected: boolean;
 }
 
-function ProductCard({ product }: Props) {
+function ProductCard({ product, onSelectProduct, isSelected }: Props) {
     return (
-        <div className="order-card-container">
+        <div
+            className={`order-card-container ${isSelected ? 'selected' : ''}`}
+            //Quando clicar em algum produto, ira chamar essa função: onSelectProduct(product) passando qual produto foi selecionado
+            onClick={() => onSelectProduct(product)}
+        >
             <h3 className="order-card-title">
                 {product.name}
             </h3>
@@ -28,7 +25,7 @@ function ProductCard({ product }: Props) {
                 alt={product.name}
             />
             <h3 className="order-card-price">
-                 {formatPrice(product.price)}
+                {formatPrice(product.price)}
             </h3>
             <div className="order-card-description">
                 <h3>Descrição</h3>
