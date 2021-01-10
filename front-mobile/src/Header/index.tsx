@@ -1,12 +1,24 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-function Header() {
+function Header() {   
+   //Essas 2 const abaixo é para redirecionar quando clicar no nome DS DELIVERY, voltar pra home. Essas 2 const trabalham junto com a função TouchableWithoutFeedback  
+    const navigation = useNavigation();
+    
+    const handleOnPress = () => {
+        navigation.navigate('Home')
+
+    }
   return (
+    //Essa função TouchableWithoutFeedback é para inidicar q essa View é clicavel. Como padrão a view não é clicavel, entao n da pra capturar o evento de click
+    <TouchableWithoutFeedback onPress={handleOnPress}>    
     <View style={styles.container}>
       <Image source={require('../assets/logo.png')} />
       <Text style={styles.text}>DS Delivery</Text>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 

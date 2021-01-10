@@ -1,14 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import Header from '../Header';
 
 function Home() {
-
+    //Foi criado uma variavel para quando for clicado no botão VER PEDIDOS, seja redirecionado
+    const navigation = useNavigation();
+    //Quando o botão for pressionado irá chamar a função handleOnPress que ira redirecionar para o 'Orders'
     const handleOnPress = () => {
-
+        navigation.navigate('Orders')
     }
+    
     return (
         <>
+            <Header />
             <View style={styles.container}>
                 <Image source={require('../assets/deliveryman.png')} />
                 <Text style={styles.title}>
