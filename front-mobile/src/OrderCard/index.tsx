@@ -1,21 +1,38 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Order } from '../types';
+import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
+dayjs.locale('pt-br');
+dayjs.extend(relativeTime);
 
+//Foi criado para poder manipular o tipo order na função OrderCard. Como se fosse um Order.getId; Order.getName
+type Props = {
+    order: Order;
+}
 
-function OrderCard() {
+//Isso é para formatar a data vinda do banco
+function dateFromNow(date: string){
+    return dayjs(date).fromNow();
+}
+
+//Aqui passou como parametr o props do tipo order para fazer a manipulação dos dados
+function OrderCard({order }: Props) {
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.orderName}> Pedido 1 </Text>
-                    <Text style={styles.orderPrice}> R$ 50,00 </Text>
+                    <Text style={styles.orderName}> Pedido {order.id}</Text>
+                    <Text style={styles.orderPrice}>R$ {(order.total)} </Text>
                 </View>
-                <Text style={styles.text}> Há 30 min </Text>
+                <Text style={styles.text}> {dateFromNow (order.moment)} </Text>
                 <View style={styles.productsList}>
-                    <Text style={styles.text}> Pizza calabresa </Text>
-                    <Text style={styles.text}> Pizza 4 queijos </Text>
-                    <Text style={styles.text}> Pizza portuguesa </Text>
+                    {order.products.map(product => (
+                        <Text key={product.id} style={styles.text}> {product.name} </Text>
+                    ))}
+                    
                 </View>
             </View>
         </>
