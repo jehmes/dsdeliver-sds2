@@ -18,14 +18,18 @@ function dateFromNow(date: string){
     return dayjs(date).fromNow();
 }
 
-//Aqui passou como parametr o props do tipo order para fazer a manipulação dos dados
+function formatMoney(order: number){
+    return order.toFixed(2).toString().replace(".", ",");
+}
+
+//Aqui passou como parametro o props do tipo order para fazer a manipulação dos dados
 function OrderCard({order }: Props) {
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.orderName}> Pedido {order.id}</Text>
-                    <Text style={styles.orderPrice}>R$ {(order.total)} </Text>
+                    <Text style={styles.orderPrice}>R$ {formatMoney(order.total)}  </Text>
                 </View>
                 <Text style={styles.text}> {dateFromNow (order.moment)} </Text>
                 <View style={styles.productsList}>
